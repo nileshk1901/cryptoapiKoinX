@@ -65,10 +65,17 @@ const fetchCryptoData = async () => {
 		await Crypto.insertMany(cryptoEntries);
 		console.log("Crypto data saved successfully");
 	} catch (error) {
-		console.error(
-			"Error fetching crypto data:",
-			error.response ? error.response.data : error.message
-		);
+		console.error("Error fetching crypto data:");
+		if (error.response) {
+			console.error("Response data:", error.response.data);
+			console.error("Response status:", error.response.status);
+			console.error("Response headers:", error.response.headers);
+		} else if (error.request) {
+			console.error("No response received:", error.request);
+		} else {
+			console.error("Error message:", error.message);
+		}
+		console.error("Error config:", error.config);
 	}
 };
 
