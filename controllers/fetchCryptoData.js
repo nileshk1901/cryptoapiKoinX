@@ -39,13 +39,15 @@ const Crypto = require("../models/cryptoModel");
 const cron = require("node-cron");
 
 const COINGECKO_API = process.env.COINGECKO_API;
+const COINGECKO_API_KEY = process.env.COINGECKO_API_KEY;
 const fetchCryptoData = async () => {
 	try {
 		const coins = ["bitcoin", "matic-network", "ethereum"];
 		const apiUrl = `${COINGECKO_API}/simple/price?ids=${coins.join(
 			","
-		)}&vs_currencies=usd&include_market_cap=true&include_24hr_change=true`;
+		)}&vs_currencies=usd&include_market_cap=true&include_24hr_change=true&x_cg_demo_api_key=${COINGECKO_API_KEY}`;
 
+		console.log("API URL:", apiUrl);
 		const response = await axios.get(apiUrl, {
 			headers: {
 				"User-Agent": "CryptoApp/1.0",
